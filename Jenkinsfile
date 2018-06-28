@@ -7,11 +7,22 @@ pipeline{
       agent
       {
         docker{
-          image 'maven:3.5.0-jdk-8'
+          image 'maven:3.5.2'
         }
       }
       steps{
-        sh 'mvn clean install'
+        sh 'mvn clean compile'
+      }
+    }
+    stage('Deploy'){
+      agent
+      {
+        docker{
+          image 'maven:3.5.2'
+        }
+      }
+      steps{
+        sh 'mvn deploy'
       }
     }
   }
